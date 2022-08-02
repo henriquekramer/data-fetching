@@ -1,18 +1,23 @@
-import { useFetch } from "./hooks/useFetch";
-
+import { useQuery } from '@tanstack/react-query'
+import axios from 'axios';
 interface Repository {
   full_name: string;
   description: string;
 }
 
 export function App() {
-  const { data: repositories, error, isFetching } = 
-    useFetch<Repository[]>('users/henriquekramer/repos')
+  const { data: repositories, isFetching, error} = useQuery<Repository[], Error>(['repos'], async () => {
+    const response = await axios.get('https://api.github.com/users/henriquekramer/repos')
+
+    return response.data
+  }, {
+    // refetchOnWindowFocus: false,
+  })
 
   return (
     <ul>
       { isFetching && <p>Carregando...</p> }
-      { error && <p>{`Error: ${error.message}`}</p> }
+      { error && <p>{`An error has occurred: ${error.message}`}</p>}
       { repositories?.map(repo => {
         return (
           <li key={repo.full_name}>
