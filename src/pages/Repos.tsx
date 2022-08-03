@@ -15,22 +15,33 @@ function useRepositories(){
 }
 
 export function Repos() {
-  const { data: repositories, isFetching, error} = useRepositories()
+  const { data: repositories, isFetching, status, error} = useRepositories()
 
   return (
-    <ul>
-      { isFetching && <p>Carregando...</p> }
-      { error && <p>{`An error has occurred: ${error.message}`}</p>}
-
-      { repositories?.map(repo => {
-        return (
-          <li key={repo.name}>
-            <Link to={`repos/${repo.name}`}>REPOSITÓRIO - {repo.name}</Link>
-            <p>Descrição: {repo.description}</p>
-          </li>
-        )
-      })}
-    </ul>
+    <div>
+      <h1>Lista de Repositórios</h1>
+      <div>
+        {status === "loading" ? (
+          "Loading..."
+        ) : status === "error" ? (
+          <span>Error: {error.message}</span>
+        ) : (
+          <>
+            <ul>
+              {repositories?.map(repo => {
+                return (
+                  <li key={repo.name}>
+                    <Link to={`repos/${repo.name}`}>REPOSITÓRIO - {repo.name}</Link>
+                    <p>Descrição: {repo.description}</p>
+                  </li>            
+                )
+              })}
+            </ul>
+            <div>{isFetching ? "Background Updating..." : " "}</div>
+          </>
+        )}
+      </div>
+    </div>
   )
 }
 
