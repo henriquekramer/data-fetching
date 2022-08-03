@@ -9,7 +9,7 @@ export interface Repository {
 
 function useRepositories(){
   return useQuery<Repository[], Error>(['repos'], async () => {
-    const response = await axios.get('https://api.github.com/users/henriquekramer/repos')
+    const response = await axios.get('https://api.github.com/users/henriquekraer/repos')
     return response.data
   })
 }
