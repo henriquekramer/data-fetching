@@ -5,8 +5,7 @@ export function Repo(){
   const { repoName } = useParams()
   const { repositories } = useRepositoriesContext()
 
-  const repositoryInfo = repositories?.filter(repo => repo.name === repoName)
-  console.log(repositoryInfo);
+  const repositoryInfo = repositories.filter(repo => repo.name === repoName)
 
   return (
     <>

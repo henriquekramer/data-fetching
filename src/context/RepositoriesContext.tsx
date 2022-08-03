@@ -26,10 +26,6 @@ export function RepositoriesContextProvider({ children}: RepositoriesContextProv
     return response.data
   })
 
-  function getRepositoryInfos(name: string){
-    return repositories?.filter(repo => repo.name === name)
-  }
-
   return (
     <RepositoriesContext.Provider value={{repositories: repositories ? repositories : [], isFetching, error }}>
       {children}
