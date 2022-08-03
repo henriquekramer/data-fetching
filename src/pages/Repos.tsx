@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { useRepositoriesContext } from '../context/RepositoriesContext';
+import { useRepositories } from '../hooks/useRepositories';
 
 export function Repos() {
-  const {repositories, isFetching, error} = useRepositoriesContext()
+  const {repositories, isFetching, error} = useRepositories()
 
   return (
     <ul>
@@ -12,10 +12,8 @@ export function Repos() {
       { repositories?.map(repo => {
         return (
           <li key={repo.name}>
-            <Link to={`repos/${repo.name}`} >
-              {repo.name}
-            </Link>
-            <p>{repo.description}</p>
+            <Link to={`repos/${repo.name}`}>REPOSITÓRIO - {repo.name}</Link>
+            <p>Descrição: {repo.description}</p>
           </li>
         )
       })}

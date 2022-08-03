@@ -27,12 +27,17 @@ export function RepositoriesContextProvider({ children}: RepositoriesContextProv
   })
 
   return (
-    <RepositoriesContext.Provider value={{repositories: repositories ? repositories : [], isFetching, error }}>
+    <RepositoriesContext.Provider 
+    value={{
+      repositories: repositories ? repositories : [], 
+      isFetching, 
+      error }}
+    >
       {children}
     </ RepositoriesContext.Provider>
   )
 }
 
-export function useRepositoriesContext(){
+export function useRepositories(){
   return useContext(RepositoriesContext)
 }

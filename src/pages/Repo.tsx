@@ -1,19 +1,20 @@
-import { useParams } from "react-router-dom"
-import { useRepositoriesContext } from "../context/RepositoriesContext"
+import { Link, useParams } from "react-router-dom"
+import { useRepositories } from "../hooks/useRepositories"
 
 export function Repo(){
   const { repoName } = useParams()
-  const { repositories } = useRepositoriesContext()
+  const { repositories } = useRepositories()
 
   const repositoryInfo = repositories.filter(repo => repo.name === repoName)
 
   return (
     <>
       {repositoryInfo.length > 0 && ( 
-        <>
-          <h1>{repositoryInfo[0].name}</h1>
-          <p>{repositoryInfo[0].description}</p>
-        </>
+        <div className="repoInfos">
+          <h3>Nome do Repositório - {repositoryInfo[0].name}</h3>
+          <p>Descrição: {repositoryInfo[0].description}</p>
+          <Link to={'/'} className="backButton"> Voltar </Link>
+        </div>
       )}
     </>
   )
